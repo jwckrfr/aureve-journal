@@ -1,76 +1,109 @@
----
-layout: default
-lang: kr
-title: Journal
----
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AU RÊVE Journal</title>
+  <meta name="description" content="파리 감성을 담은 데일리 여성 의류 브랜드, AU RÊVE의 저널">
+  <meta property="og:title" content="AU RÊVE Journal">
+  <meta property="og:description" content="파리 감성을 담은 데일리 여성 의류 브랜드, AU RÊVE의 저널">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
 
-<div class="ar-journal-hero">
-  <h1>Journal</h1>
-  <p>오헤브의 이야기, 스타일 가이드, 그리고 영감.</p>
-</div>
+  <!-- HEADER -->
+  <header class="ar-header">
+    <div class="ar-header__inner">
+      <div class="ar-header__left">
+        <a href="https://www.shopaureve.com">Shop</a>
+        <a href="https://www.shopaureve.com/about">About</a>
+      </div>
+      <button class="ar-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="/" class="ar-header__logo">AU RÊVE</a>
+      <div class="ar-header__right">
+        <button class="ar-lang-toggle" onclick="switchLang('en')">EN</button>
+      </div>
+    </div>
+  </header>
+  <nav class="ar-mobile-menu" id="mobileMenu">
+    <a href="https://www.shopaureve.com">Shop</a>
+    <a href="https://www.shopaureve.com/about">About</a>
+    <a href="/">Journal</a>
+    <a href="https://www.instagram.com/shop.aureve" target="_blank">Instagram</a>
+  </nav>
 
-{% assign kr_posts = site.posts | where: "lang", "kr" | sort: "date" | reverse %}
-{% assign total = kr_posts.size %}
-{% assign per_page = 1 %}
-{% assign current_page = 1 %}
+  <main>
+    <!-- JOURNAL HERO -->
+    <div class="ar-journal-hero">
+      <h1>Journal</h1>
+      <p id="journal-subtitle">오헤브의 이야기, 스타일 가이드, 그리고 영감.</p>
+    </div>
 
-{% if page.url contains "/page/" %}
-  {% assign page_parts = page.url | split: "/page/" %}
-  {% assign current_page = page_parts[1] | replace: "/", "" | plus: 0 %}
-{% endif %}
+    <!-- JOURNAL CONTENT (JS renders post here) -->
+    <article class="ar-entry">
+      <div id="journal-content"></div>
+    </article>
 
-{% assign offset = current_page | minus: 1 | times: per_page %}
-{% assign total_pages = total | divided_by: per_page %}
+    <!-- PAGINATION (JS renders here) -->
+    <nav class="ar-pagination" id="journal-pagination"></nav>
+  </main>
 
-{% assign post = kr_posts[offset] %}
+  <!-- FOOTER -->
+  <footer class="ar-footer">
+    <div class="ar-footer__sitemap">
+      <div class="ar-footer__brand">
+        <div class="ar-footer__brand-logo">AU RÊVE</div>
+        <p class="ar-footer__brand-desc">파리 감성을 담은<br>데일리 여성 의류 브랜드</p>
+      </div>
+      <div class="ar-footer__col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="https://www.shopaureve.com">All</a></li>
+          <li><a href="https://www.shopaureve.com">New Arrivals</a></li>
+          <li><a href="https://www.shopaureve.com">Outerwear</a></li>
+        </ul>
+      </div>
+      <div class="ar-footer__col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="https://www.shopaureve.com/about">About</a></li>
+          <li><a href="https://www.shopaureve.com/contact">Contact</a></li>
+          <li><a href="/">Journal</a></li>
+        </ul>
+      </div>
+      <div class="ar-footer__col">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/shop.aureve" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ar-footer__bottom">
+      <div class="ar-footer__copy">
+        <span>&copy; 2026 AU RÊVE</span>
+        <button class="ar-footer__biz-toggle" onclick="toggleBiz(this)">
+          사업자정보 <span class="arrow"></span>
+        </button>
+      </div>
+      <div class="ar-footer__social">
+        <a href="https://www.instagram.com/shop.aureve" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="ar-footer__business" id="bizInfo">
+      굿데이선샤인 | 대표 박민정 | 사업자등록번호 109-41-25072<br>
+      통신판매신고 2025-경남김해-0348<br>
+      경상남도 김해시 김해대로 2349 101동 3203호<br>
+      bonjour@shopaureve.com
+    </div>
+  </footer>
 
-{% if post %}
-<article class="ar-entry">
-  {% if post.cover %}
-  <div class="ar-entry__cover">
-    <img src="{{ post.cover }}" alt="{{ post.title }}">
-  </div>
-  {% endif %}
-
-  <div class="ar-entry__meta">
-    <span class="ar-entry__tag">{{ post.tag }}</span>
-    <span class="ar-entry__date">{{ post.date | date: "%Y. %m. %d" }}</span>
-  </div>
-
-  <h2 class="ar-entry__title">
-    <a href="{{ post.url }}">{{ post.title }}</a>
-  </h2>
-
-  <div class="ar-entry__body">
-    {{ post.content }}
-  </div>
-</article>
-
-<nav class="ar-pagination">
-  {% if current_page > 1 %}
-    {% if current_page == 2 %}
-      <a href="/" class="arrow">&larr;</a>
-    {% else %}
-      <a href="/page/{{ current_page | minus: 1 }}/" class="arrow">&larr;</a>
-    {% endif %}
-  {% else %}
-    <span class="arrow" style="visibility:hidden">&larr;</span>
-  {% endif %}
-
-  {% for i in (1..total_pages) %}
-    {% if i == current_page %}
-      <span class="active">{{ i }}</span>
-    {% elsif i == 1 %}
-      <a href="/">{{ i }}</a>
-    {% else %}
-      <a href="/page/{{ i }}/">{{ i }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if current_page < total_pages %}
-    <a href="/page/{{ current_page | plus: 1 }}/" class="arrow">&rarr;</a>
-  {% else %}
-    <span class="arrow" style="visibility:hidden">&rarr;</span>
-  {% endif %}
-</nav>
-{% endif %}
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
