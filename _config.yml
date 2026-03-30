@@ -1,0 +1,35 @@
+title: "AU RÊVE Journal"
+description: "오헤브의 이야기, 스타일 가이드, 그리고 영감."
+url: "https://journal.shopaureve.com"
+baseurl: ""
+
+paginate: 1
+paginate_path: "/page/:num/"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-paginate
+
+defaults:
+  - scope:
+      path: "_posts/kr"
+    values:
+      lang: "kr"
+      layout: "post"
+  - scope:
+      path: "_posts/en"
+    values:
+      lang: "en"
+      layout: "post"
+
+shop_url: "https://www.shopaureve.com"
+instagram_url: "https://www.instagram.com/shop.aureve"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
