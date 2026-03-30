@@ -1,0 +1,76 @@
+---
+layout: default
+lang: kr
+title: Journal
+---
+
+<div class="ar-journal-hero">
+  <h1>Journal</h1>
+  <p>오헤브의 이야기, 스타일 가이드, 그리고 영감.</p>
+</div>
+
+{% assign kr_posts = site.posts | where: "lang", "kr" | sort: "date" | reverse %}
+{% assign total = kr_posts.size %}
+{% assign per_page = 1 %}
+{% assign current_page = 1 %}
+
+{% if page.url contains "/page/" %}
+  {% assign page_parts = page.url | split: "/page/" %}
+  {% assign current_page = page_parts[1] | replace: "/", "" | plus: 0 %}
+{% endif %}
+
+{% assign offset = current_page | minus: 1 | times: per_page %}
+{% assign total_pages = total | divided_by: per_page %}
+
+{% assign post = kr_posts[offset] %}
+
+{% if post %}
+<article class="ar-entry">
+  {% if post.cover %}
+  <div class="ar-entry__cover">
+    <img src="{{ post.cover }}" alt="{{ post.title }}">
+  </div>
+  {% endif %}
+
+  <div class="ar-entry__meta">
+    <span class="ar-entry__tag">{{ post.tag }}</span>
+    <span class="ar-entry__date">{{ post.date | date: "%Y. %m. %d" }}</span>
+  </div>
+
+  <h2 class="ar-entry__title">
+    <a href="{{ post.url }}">{{ post.title }}</a>
+  </h2>
+
+  <div class="ar-entry__body">
+    {{ post.content }}
+  </div>
+</article>
+
+<nav class="ar-pagination">
+  {% if current_page > 1 %}
+    {% if current_page == 2 %}
+      <a href="/" class="arrow">&larr;</a>
+    {% else %}
+      <a href="/page/{{ current_page | minus: 1 }}/" class="arrow">&larr;</a>
+    {% endif %}
+  {% else %}
+    <span class="arrow" style="visibility:hidden">&larr;</span>
+  {% endif %}
+
+  {% for i in (1..total_pages) %}
+    {% if i == current_page %}
+      <span class="active">{{ i }}</span>
+    {% elsif i == 1 %}
+      <a href="/">{{ i }}</a>
+    {% else %}
+      <a href="/page/{{ i }}/">{{ i }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if current_page < total_pages %}
+    <a href="/page/{{ current_page | plus: 1 }}/" class="arrow">&rarr;</a>
+  {% else %}
+    <span class="arrow" style="visibility:hidden">&rarr;</span>
+  {% endif %}
+</nav>
+{% endif %}
