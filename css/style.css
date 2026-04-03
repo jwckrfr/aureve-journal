@@ -2,13 +2,16 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --ar-bg: #FFFFFF;
-  --ar-text: #1A1A1A;
-  --ar-text-secondary: #999999;
-  --ar-border: #F0F0F0;
+  --ar-bg: #FDFDF6;
+  --ar-text: #000;
+  --ar-text-secondary: #999;
+  --ar-text-middle: #555;
+  --ar-text-light: #777;
+  --ar-border: #e6e6e6;
   --ar-hover: rgba(0, 0, 0, 0.04);
+  --ar-point: #cc2c2c;
   --ar-font-logo: 'Lora', serif;
-  --ar-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ar-font-body: 'Lora', 'Pretendard Variable', 'Pretendard', sans-serif;
   --ar-padding: 48px;
   --ar-section-gap: 64px;
   --ar-header-height: 64px;
@@ -32,7 +35,7 @@ button { cursor: pointer; }
   top: 0;
   z-index: 1000;
   height: var(--ar-header-height);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(253, 253, 246, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--ar-border);
@@ -315,7 +318,7 @@ button { cursor: pointer; }
 .ar-footer__col li { margin-bottom: 10px; }
 .ar-footer__col a {
   font-size: 11px;
-  color: #777777;
+  color: var(--ar-text-light);
   transition: color 0.2s;
 }
 .ar-footer__col a:hover { color: var(--ar-text); }
